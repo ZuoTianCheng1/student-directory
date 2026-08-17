@@ -10,22 +10,29 @@ const [searchTerm, setSearchTerm] = useState('');
 const [statusFilter, setStatusFilter] = useState('all'); // 'all' | 'deansLister' |
 'probation'
 // TODO 1: handleAddStudent(newStudent)
-// - give the new student a unique id (e.g. Date.now())
-// - add it to students WITHOUT mutating the original array (spread into a new array)
+function handleAddStudent(newStudent) {
+  const studentWithId = { ...newStudent, id: Date.now() };
+  setStudents((prevStudents) => [...prevStudents, studentWithId]);
+}
+
 // TODO 2: visibleStudents
-// - start from `students`
+let visibleStudents = students;
 
-// - if searchTerm is not empty, keep only students whose name includes it (case-sensitive)
+if (searchTerm !== '') {
+  visibleStudents = visibleStudents.filter((student) =>
+    student.name.includes(searchTerm)
+  );
+}
 
-// - then apply statusFilter:
-// 'deansLister' -> keep only gwa <= 1.75
-// 'probation' -> keep only status === 'On Probation'
-// 'all' -> no extra filtering
-// - compute this fresh every render — do NOT put it in its own useState
+if (statusFilter === 'deansLister') {
+  visibleStudents = visibleStudents.filter((student) => student.gwa <= 1.75);
+} else if (statusFilter === 'probation') {
+  visibleStudents = visibleStudents.filter((student) => student.status === 'On Probation');
+}
 return (
 <div>
 <h1>Student Directory</h1>
-<StudentForm onAdd={/* TODO 3: pass handleAddStudent */} />
+<StudentForm onAdd={<StudentForm onAdd={handleAddStudent} />} />
 <DirectoryControls
 searchTerm={searchTerm}
 onSearchChange={setSearchTerm}
@@ -33,7 +40,7 @@ onSearchChange={setSearchTerm}
 statusFilter={statusFilter}
 onStatusFilterChange={setStatusFilter}
 />
-<StudentDirectory students={/* TODO 4: pass visibleStudents, NOT students */} />
+<StudentDirectory students={<StudentDirectory students={visibleStudents} />} />
 </div>
 );
 }
