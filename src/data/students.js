@@ -1,4 +1,4 @@
-export const InitialStudents = [
+export const initialStudents = [
     {id: 1, name: 'Zuo Tian Cheng', course: 'BSCS', yearLevel: 3, status: 'Regular', gwa: 1.0},
     {id: 2, name: 'Joshua', course: 'BSIT', yearLevel: 4, status: 'Regular', gwa: 1.0},
     {id: 3, name: 'Brant', course: 'BSCS', yearLevel: 2, status: 'Irregular', gwa: 3.0},
