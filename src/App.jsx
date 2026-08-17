@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import { initialStudents } from './data/students';
+import { students } from './data/students';
 import StudentDirectory from './components/StudentDirectory';
 import StudentForm from './components/StudentForm';
 import DirectoryControls from './components/DirectoryControls.jsx';
